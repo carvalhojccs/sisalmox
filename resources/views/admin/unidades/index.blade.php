@@ -22,7 +22,7 @@
     </div>
     <div class="box box-primary">
         <div class="box-header">
-            <a href="{{ route('unidades.create') }}" class="btn btn-success"><i class="fa fa-file"></i> Novo</a>
+            <a href="{{ route('unidades.create') }}" class="btn btn-success"><i class="fa fa-file">&nbsp;</i>Novo</a>
         </div>
         <div class="box-body">
             @include('admin.includes.alerts')

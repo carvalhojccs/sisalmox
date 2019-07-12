@@ -4,20 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\UnidadeRepositoryInterface;
-use App\Http\Requests\StoreUpdateUnidadeFormRequest;
+use App\Repositories\Interfaces\NaturezaRepositoryInterface;
+use App\Http\Requests\StoreUpdateNaturezaFormRequest;
 
-class UnidadeController extends Controller 
+class NaturezaController extends Controller
 {
     protected $repository;
-    protected $titulo = 'Unidade de Fornecimento';
+    protected $titulo = 'Natureza de despesa';
 
-
-    public function __construct(UnidadeRepositoryInterface $repository) 
+    public function __construct(NaturezaRepositoryInterface $repository) 
     {
         $this->repository = $repository;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -26,11 +24,11 @@ class UnidadeController extends Controller
      */
     public function index()
     {
-        $titulo = $this->titulo;
+        $titulo = $this->titulo.' - Listagem';
         
-        $unidades = $this->repository->paginate();
+        $data = $this->repository->paginate();
         
-        return view('admin.unidades.index', compact('titulo','unidades'));
+        return view('admin.naturezas.index', compact('data', 'titulo'));
     }
 
     /**
@@ -40,21 +38,21 @@ class UnidadeController extends Controller
      */
     public function create()
     {
-        $titulo = 'Adicionar nova unidade de fornecimento';
+        $titulo = $this->titulo.' - Cadastrar';
         
-        return view('admin.unidades.create', compact('titulo'));
+        return view('admin.naturezas.create', compact('titulo'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreUpdateUnidadeFormRequest  $request
+     * @param  \App\Http\Requests\StoreUpdateNaturezaFormRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateUnidadeFormRequest $request)
+    public function store(StoreUpdateNaturezaFormRequest $request)
     {
         if($this->repository->store($request->all())):
-            return redirect()->route('unidades.index')->withSuccess('Cadastro realizado com sucesso!');
+            return redirect()->route('naturezas.index')->withSuccess('Cadasro realizado com sucesso!');
         else:
             return redirect()->back()->withErrors('Falha ao cadastrar!');
         endif;
@@ -70,15 +68,9 @@ class UnidadeController extends Controller
     {
         $titulo = $this->titulo.' - Detalhes';
         
-        if(!$data = $this->repository->findById($id)):
-            return redirect()->back();
-        else:
-            
-            //dd($data->created_at->format('d/m/Y'));
-            
-            
-            return view('admin.unidades.show', compact('data','titulo'));
-        endif;
+        $data = $this->repository->findById($id);
+        
+        return view('admin.naturezas.show', compact('data','titulo'));
     }
 
     /**
@@ -91,26 +83,24 @@ class UnidadeController extends Controller
     {
         $titulo = $this->titulo.' - Editar';
         
-        if (!$data = $this->repository->findById($id)):
+        if(!$data = $this->repository->findById($id)):
             return redirect()->back();
         else:
-            return view('admin.unidades.edit', compact('data', 'titulo'));
+            return view('admin.naturezas.edit', compact('data','titulo'));
         endif;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUpdateNaturezaFormRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateUnidadeFormRequest $request, $id)
+    public function update(StoreUpdateNaturezaFormRequest $request, $id)
     {
         $this->repository->update($id, $request->all());
-        return redirect()
-                    ->route('unidades.index')
-                    ->withSuccess('Atualização realizada com sucesso!');
+        return redirect()->route('naturezas.index')->withSuccess('Atualização realizada com sucesso!');
     }
 
     /**
@@ -122,7 +112,7 @@ class UnidadeController extends Controller
     public function destroy($id)
     {
         if($this->repository->delete($id)):
-            return redirect()->route('admin.unidades.index')->withSuccess('Cadastro deletado co sucesso!');
+            return redirect()->route('naturezas.index')->withSuccess('Cadastro deletado co sucesso!');
         else:
             return redirect()->back()->withErrors("Falha ao deletar");
         endif;
@@ -132,10 +122,10 @@ class UnidadeController extends Controller
     {
         $titulo = $this->titulo;
         
-        $data = $request->except('_token');
+        $filter = $request->except('_token');
         
-        $unidades = $this->repository->search($data);
+        $unidades = $this->repository->search($filter);
         
-        return view('admin.unidades.index', compact('unidades','data','titulo'));
+        return view('admin.unidades.index', compact('unidades','filter','titulo'));
     }
 }
