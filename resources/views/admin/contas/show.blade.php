@@ -24,6 +24,13 @@
                 {{ Form::label('data_cadastro','Cadastrado em:') }}
                 {{ Form::text('data_cadastro',$data->created_at->format('d/m/Y'),['class' => 'form-control','disabled']) }}
             </div>
+            <div class="form-group">
+                {{ Form::label('conta_natureza','Naturezas de despesas vinculadas:') }}
+                @foreach ($data->naturezas as $natureza)
+                {{ Form::text('conta_natureza',$natureza->codigo,['class' => 'form-control','disabled']) }}
+                <br>
+                @endforeach
+            </div>
             @include('admin.componentes.form_btn_show')
         </div>
     </div>

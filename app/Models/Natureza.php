@@ -8,4 +8,9 @@ class Natureza extends Model
 {
     protected $table = 'naturezas';
     protected $fillable = ['codigo','descricao'];
+    
+    public function contas() 
+    {
+        return $this->belongsToMany(Conta::class);
+    }
 }

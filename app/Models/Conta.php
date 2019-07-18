@@ -8,4 +8,9 @@ class Conta extends Model
 {
     protected $table = 'contas';
     protected $fillable = ['codigo','nome'];
+    
+    public function naturezas() 
+    {
+        return $this->belongsToMany(Natureza::class);
+    }
 }
