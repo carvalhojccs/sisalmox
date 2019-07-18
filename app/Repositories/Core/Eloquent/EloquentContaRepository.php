@@ -2,16 +2,16 @@
 
 namespace App\Repositories\Core\Eloquent;
 
-use App\Models\Unidade;
+use App\Models\Conta;
 use App\Repositories\Core\BaseEloquentRepository;
-use App\Repositories\Interfaces\UnidadeRepositoryInterface;
+use App\Repositories\Interfaces\ContaRepositoryInterface;
 use Illuminate\Http\Request;
 
-class EloquentUnidadeRepository extends BaseEloquentRepository implements UnidadeRepositoryInterface
+class EloquentContaRepository extends BaseEloquentRepository implements ContaRepositoryInterface
 {
     public function entity() 
     {
-        return Unidade::class;
+        return Conta::class;
     }
 
     public function search(array $filters) 
@@ -21,8 +21,8 @@ class EloquentUnidadeRepository extends BaseEloquentRepository implements Unidad
                 $query->where('nome','like',"%{$filters['nome']}%");
             endif;
             
-            if(isset($filters['sigla'])):
-                $query->where('sigla','like',"%{$filters['sigla']}%");
+            if(isset($filters['codigo'])):
+                $query->where('codigo','like',"%{$filters['codigo']}%");
             endif;
             
         })->paginate();

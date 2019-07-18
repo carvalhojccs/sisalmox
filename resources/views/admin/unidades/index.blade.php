@@ -11,13 +11,14 @@
     <div class="box box-primary">
         <div class="box-body">
             {{ Form::open(['route' => 'unidades.search','class' => 'form form-inline']) }}
-                {{ Form::text('nome',null,['placeholder' => 'Nome','class' => 'form-control']) }}
-                {{ Form::text('sigla',null,['placeholder' => 'Sigla','class' => 'form-control']) }}
+                {{ Form::text('nome',$filters['nome'] ?? '',['placeholder' => 'Nome','class' => 'form-control']) }}
+                {{ Form::text('sigla',$filters['sigla'] ?? '',['placeholder' => 'Sigla','class' => 'form-control']) }}
                 {{ Form::submit('Pesquisar',['class' => 'btn btn-primary']) }}
+                @if (isset($filters))
+                <a href="{{ route('unidades.index') }}">(x) Limpar Resultados da Pesquisa</a>
+            @endif
             {{ Form::close() }}
-            @if (isset($data))
-                    <a href="{{ route('unidades.index') }}">(x) Limpar Resultados da Pesquisa</a>
-                @endif
+            
         </div>
     </div>
     <div class="box box-primary">
@@ -48,8 +49,8 @@
                 @endforeach
               </tbody>
             </table>
-            @if (isset($data))
-                {!! $unidades->appends($data)->links() !!}
+            @if (isset($filters))
+                {!! $unidades->appends($filters)->links() !!}
             @else
                 {!! $unidades->links() !!}
             @endif

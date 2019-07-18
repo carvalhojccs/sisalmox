@@ -2,24 +2,23 @@
 
 namespace App\Repositories\Core\Eloquent;
 
-use App\Models\Natureza;
+use App\Models\Equipamento;
 use App\Repositories\Core\BaseEloquentRepository;
-use App\Repositories\Interfaces\NaturezaRepositoryInterface;
+use App\Repositories\Interfaces\EquipamentoRepositoryInterface;
 
-class EloquentNaturezaRepository extends BaseEloquentRepository implements NaturezaRepositoryInterface
+class EloquentEquipamentoRepository extends BaseEloquentRepository implements EquipamentoRepositoryInterface
 {
     public function entity() 
     {
-        return Natureza::class;
+        return Equipamento::class;
     }
-
+    
     public function search(array $filter) 
     {
         return $this->entity->where(function($query) use($filter){
-            if($filter['nome']):
+            if(isset($filter['nome'])):
                 $query->where('nome','like',"%{$filter['nome']}%");
             endif;
-        })->paginate();
+        })->paginate(10);
     }
-
 }

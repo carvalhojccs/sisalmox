@@ -145,8 +145,12 @@ return [
                     'url'     => 'admin/naturezas',
                 ],
                 [
-                    'text' => 'Level One',
-                    'url'  => '#',
+                    'text'    => 'Conta',
+                    'url'     => 'admin/contas',
+                ],
+                [
+                    'text' => 'Equipamentos',
+                    'url'  => 'admin/equipamentos',
                 ],
             ],
         ],
