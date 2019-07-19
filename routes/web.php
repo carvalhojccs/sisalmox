@@ -14,6 +14,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
     
     Route::any('armazens/search','ArmazemController@search')->name('armazens.search');
     Route::resource('armazens','ArmazemController');
+    
+    Route::any('armazenagens/search','ArmazenagemController@search')->name('armazenagens.search');
+    Route::resource('armazenagens','ArmazenagemController');
 });
 
 Route::get('/', function () {

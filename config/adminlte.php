@@ -153,6 +153,10 @@ return [
                     'url'     => 'admin/armazens',
                 ],
                 [
+                    'text'    => 'Armazenagem',
+                    'url'     => 'admin/armazenagens',
+                ],
+                [
                     'text' => 'Equipamentos',
                     'url'  => 'admin/equipamentos',
                 ],

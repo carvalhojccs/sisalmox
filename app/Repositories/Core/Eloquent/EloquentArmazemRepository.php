@@ -15,7 +15,6 @@ class EloquentArmazemRepository extends BaseEloquentRepository implements Armaze
 
     public function search(array $filters)
     {
-        
         return $this->entity->where(function($query) use($filters){
             if($filters['sigla']):
                 $query->where('sigla','LIKE',"%{$filters['sigla']}%");
@@ -25,6 +24,11 @@ class EloquentArmazemRepository extends BaseEloquentRepository implements Armaze
                 $query->orWhere('nome','LIKE',"%{$filters['nome']}%");
             endif;
         })->paginate();
+    }
+    
+    public function selectArmazens() 
+    {
+        return $this->entity->pluck('nome','id');
     }
 
 }

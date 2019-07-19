@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\ArmazenagemRepositoryInterface;
 use App\Repositories\Interfaces\ArmazemRepositoryInterface;
-use App\Http\Requests\StoreUpdateArmazemFormRequest;
+use App\Http\Requests\StoreUpdateArmazenagemFormRequest;
 
-class ArmazemController extends Controller
+class ArmazenagemController extends Controller
 {
-    protected $repository;
-    protected $model;
+    protected $repository, $armazemRepository, $model;
     
-    public function __construct(ArmazemRepositoryInterface $repository, Request $request) 
+    public function __construct(ArmazenagemRepositoryInterface $repository, ArmazemRepositoryInterface $armazemRepository, Request $request)
     {
         $this->repository = $repository;
+        $this->armazemRepository = $armazemRepository;
         $this->model = $request->segment(2);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,11 +25,14 @@ class ArmazemController extends Controller
      */
     public function index()
     {
+        //resupera todos os armazens
+        $armazens = $this->armazemRepository->selectArmazens();
+        
         //recupera todos os dados da tabela
-        $data = $this->repository->paginate();
+        $data = $this->repository->relationships('armazem')->paginate();
         
         //chama a view index para listagem dos dados
-        return view('admin.'.$this->model.'.index', compact('data'));        
+        return view('admin.'.$this->model.'.index', compact('data', 'armazens'));  
     }
 
     /**
@@ -39,8 +42,11 @@ class ArmazemController extends Controller
      */
     public function create()
     {
+        //recupera todos os armazens cadastrados
+        $armazens = $this->armazemRepository->selectArmazens();
+        
         //chama a view create com o formulário para cadastro
-        return view('admin.'.$this->model.'.create');
+        return view('admin.'.$this->model.'.create', compact('armazens'));
     }
 
     /**
@@ -49,7 +55,7 @@ class ArmazemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateArmazemFormRequest $request)
+    public function store(StoreUpdateArmazenagemFormRequest $request)
     {
         if($this->repository->store($request->all())):
             return redirect()->route($this->model.'.index')->withSuccess('Cadasro realizado com sucesso!');
@@ -67,7 +73,7 @@ class ArmazemController extends Controller
     public function show($id)
     {
         //recupera os dados pelo seu id
-        $data = $this->repository->findById($id);
+        $data = $this->repository->relationships('armazem')->findById($id);
         
         //chama a view show e passa os dados na variável $data
         return view('admin.'.$this->model.'.show', compact('data'));
@@ -81,10 +87,13 @@ class ArmazemController extends Controller
      */
     public function edit($id)
     {
-        if(!$data = $this->repository->findById($id)):
+        //recupera todos os armazens cadastrados
+        $armazens = $this->armazemRepository->selectArmazens();
+        
+         if(!$data = $this->repository->findById($id)):
             return redirect()->back();
         else:
-            return view('admin.'.$this->model.'.edit', compact('data'));
+            return view('admin.'.$this->model.'.edit', compact('data','armazens'));
         endif;
     }
 
@@ -95,7 +104,7 @@ class ArmazemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateArmazemFormRequest $request, $id)
+    public function update(StoreUpdateArmazenagemFormRequest $request, $id)
     {
         //atualia os dados de um registro específico
         $this->repository->update($id, $request->all());
@@ -132,10 +141,13 @@ class ArmazemController extends Controller
         //filtro com os parametros da pesquisa
         $filters = $request->except('_token');
         
+        //resupera todos os armazens
+        $armazens = $this->armazemRepository->selectArmazens();
+        
         //realiza a pesquisa com os filtros passados e armazena em $data
         $data = $this->repository->search($filters);
         
         //chama a view index retornado os filtros e os dados encontrados
-        return view('admin.'.$this->model.'.index', compact('data','filters'));
+        return view('admin.'.$this->model.'.index', compact('data','filters','armazens'));
     }
 }

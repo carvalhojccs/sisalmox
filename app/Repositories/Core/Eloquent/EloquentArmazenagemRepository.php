@@ -5,7 +5,6 @@ namespace App\Repositories\Core\Eloquent;
 use App\Models\Armazenagem;
 use App\Repositories\Core\BaseEloquentRepository;
 use App\Repositories\Interfaces\ArmazenagemRepositoryInterface;
-use Illuminate\Http\Request;
 
 class EloquentArmazenagemRepository extends BaseEloquentRepository implements ArmazenagemRepositoryInterface
 {
@@ -14,17 +13,23 @@ class EloquentArmazenagemRepository extends BaseEloquentRepository implements Ar
         return Armazenagem::class;
     }
 
-    public function search(Request $request)
+    public function search(array $filters)
     {
-//        return $this->entity->where(function($query) use($request){
-//            if($request->sigla):
-//                $query->where('sigla','LIKE',"%{$request->sigla}%");
-//            endif;
-//            
-//            if($request->nome):
-//                $query->orWhere('nome','LIKE',"%{$request->nome}%");
-//            endif;
-//        })->paginate();
+        //dd($filters);
+        
+        return $this->entity->where(function($query) use($filters){
+            if($filters['armazem_id']):
+                $query->where('armazem_id',$filters['armazem_id']);
+            endif;
+            
+            if($filters['sigla']):
+                $query->where('sigla','LIKE',"%{$filters['sigla']}%");
+            endif;
+            
+            if($filters['nome']):
+                $query->where('nome','LIKE',"%{$filters['nome']}%");
+            endif;
+        })->paginate();
     }
 
 }
