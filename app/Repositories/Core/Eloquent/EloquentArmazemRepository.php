@@ -5,7 +5,6 @@ namespace App\Repositories\Core\Eloquent;
 use App\Models\Armazem;
 use App\Repositories\Core\BaseEloquentRepository;
 use App\Repositories\Interfaces\ArmazemRepositoryInterface;
-use Illuminate\Http\Request;
 
 class EloquentArmazemRepository extends BaseEloquentRepository implements ArmazemRepositoryInterface
 {
@@ -14,16 +13,16 @@ class EloquentArmazemRepository extends BaseEloquentRepository implements Armaze
         return Armazem::class;
     }
 
-    public function search(Request $request)
+    public function search(array $filters)
     {
         
-        return $this->entity->where(function($query) use($request){
-            if($request->sigla):
-                $query->where('sigla','LIKE',"%{$request->sigla}%");
+        return $this->entity->where(function($query) use($filters){
+            if($filters['sigla']):
+                $query->where('sigla','LIKE',"%{$filters['sigla']}%");
             endif;
             
-            if($request->nome):
-                $query->orWhere('nome','LIKE',"%{$request->nome}%");
+            if($filters['nome']):
+                $query->orWhere('nome','LIKE',"%{$filters['nome']}%");
             endif;
         })->paginate();
     }

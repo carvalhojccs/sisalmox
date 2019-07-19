@@ -149,6 +149,10 @@ return [
                     'url'     => 'admin/contas',
                 ],
                 [
+                    'text'    => 'Armazem',
+                    'url'     => 'admin/armazens',
+                ],
+                [
                     'text' => 'Equipamentos',
                     'url'  => 'admin/equipamentos',
                 ],
