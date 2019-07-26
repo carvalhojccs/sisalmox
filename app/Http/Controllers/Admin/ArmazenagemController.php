@@ -58,7 +58,8 @@ class ArmazenagemController extends Controller
     public function store(StoreUpdateArmazenagemFormRequest $request)
     {
         if($this->repository->store($request->all())):
-            return redirect()->route($this->model.'.index')->withSuccess('Cadasro realizado com sucesso!');
+            return redirect()->route($this->model.'.index')
+                ->withSuccess('Cadasro realizado com sucesso!');
         else:
             return redirect()->back()->withErrors('Falha ao cadastrar!');
         endif;
@@ -90,7 +91,7 @@ class ArmazenagemController extends Controller
         //recupera todos os armazens cadastrados
         $armazens = $this->armazemRepository->selectArmazens();
         
-         if(!$data = $this->repository->findById($id)):
+        if(!$data = $this->repository->findById($id)):
             return redirect()->back();
         else:
             return view('admin.'.$this->model.'.edit', compact('data','armazens'));
@@ -110,7 +111,8 @@ class ArmazenagemController extends Controller
         $this->repository->update($id, $request->all());
         
         //redireciona para a view index
-        return redirect()->route($this->model.'.index')->withSuccess('Atualização realizada com sucesso!');
+        return redirect()->route($this->model.'.index')
+                ->withSuccess('Atualização realizada com sucesso!');
     }
 
     /**
@@ -124,7 +126,8 @@ class ArmazenagemController extends Controller
         //verifica se a conta foi deletada com sucesso e redireciona para a view index,
         //caso contrário mostra uma mensagem de erro
         if($this->repository->delete($id)):
-            return redirect()->route($this->model.'.index')->withSuccess('Cadastro deletado co sucesso!');
+            return redirect()->route($this->model.'.index')
+                ->withSuccess('Cadastro deletado co sucesso!');
         else:
             return redirect()->back()->withErrors("Falha ao deletar");
         endif;

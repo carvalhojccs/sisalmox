@@ -17,6 +17,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
     
     Route::any('armazenagens/search','ArmazenagemController@search')->name('armazenagens.search');
     Route::resource('armazenagens','ArmazenagemController');
+    
+    Route::any('materiais/search','MaterialController@search')->name('materiais.search');
+    Route::resource('materiais','MaterialController');
+    
+    Route::any('documentos/search','DocumentoController@search')->name('documentos.search');
+    Route::resource('documentos','DocumentoController');
+    
+    Route::any('fornecedores/search','FornecedorController@search')->name('fornecedores.search');
+    Route::resource('fornecedores','FornecedorController');
+    
+    Route::any('tipo_movimentos/search','TipoMovimentoController@search')->name('tipo_movimentos.search');
+    Route::resource('tipo_movimentos','TipoMovimentoController');
+    
+    Route::any('movimentos/search','MovimentoController@search')->name('movimentos.search');
+    Route::resource('movimentos','MovimentoController');
+    
+    Route::any('entradas/search','EntradaController@search')->name('entradas.search');
+    Route::resource('entradas','EntradaController');
 });
 
 Route::get('/', function () {

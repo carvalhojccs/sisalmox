@@ -13,4 +13,9 @@ class Conta extends Model
     {
         return $this->belongsToMany(Natureza::class);
     }
+    
+    public function materiais() 
+    {
+        return $this->hasMany(Material::class);
+    }
 }

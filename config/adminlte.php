@@ -133,9 +133,40 @@ return [
             'icon' => 'lock',
         ],
         [
+            'text'      => 'Movimentos',
+            'icon'      => 'share',
+            'submenu'   => [
+                [
+                    'text'  => 'Entrada',
+                    'url'   => 'admin/entradas',
+                ],
+                [
+                    'text'  => 'Saída',
+                    'url'   => 'admin/saidas',
+                ],
+                [
+                    'text'  => 'Transferência',
+                    'url'   => 'admin/transferencias',
+                ],
+            ]
+        ],
+        [
             'text'    => 'Tabelas',
             'icon'    => 'share',
             'submenu' => [
+                [
+                    'text' => 'Tipo Movimento',
+                    'url'  => 'admin/tipo_movimentos',
+                ],
+                [
+                    'text' => 'Fornecedor',
+                    'url'  => 'admin/fornecedores',
+                ],
+                                [
+                    'text' => 'Documento',
+                    'url'  => 'admin/documentos',
+                ],
+
                 [
                     'text' => 'Unidade',
                     'url'  => 'admin/unidades',
@@ -147,6 +178,10 @@ return [
                 [
                     'text'    => 'Conta',
                     'url'     => 'admin/contas',
+                ],
+                [
+                    'text'    => 'Material',
+                    'url'     => 'admin/materiais',
                 ],
                 [
                     'text'    => 'Armazem',

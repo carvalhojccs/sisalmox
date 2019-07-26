@@ -27,5 +27,10 @@ class EloquentUnidadeRepository extends BaseEloquentRepository implements Unidad
             
         })->paginate();
     }
+    
+    public function selectUnidades() 
+    {
+        return $this->entity->pluck('nome', 'id');
+    }
 
 }

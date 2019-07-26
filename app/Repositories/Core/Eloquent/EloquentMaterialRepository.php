@@ -14,20 +14,16 @@ class EloquentMaterialRepository extends BaseEloquentRepository implements Mater
         return Material::class;
     }
 
-    public function search(Request $request)
+    public function search(array $filters)
     {
-        return $this->entity->where(function($query) use($request){
-            if($request->part_number):
-                $query->where('part_number','LIKE',"%{$request->part_number}%");
+        return $this->entity->where(function($query) use($filters){
+            if($filters['codigo']):
+                $query->where('codigo','LIKE',"%{$filters['codigo']}%");
             endif;
             
-            if($request->descricao):
-                $query->orWhere('descricao','LIKE',"%{$request->descricao}%");
+            if($filters['descricao']):
+                $query->orWhere('descricao','LIKE',"%{$filters['descricao']}%");
             endif;          
-            
-            if($request->provedor_id):
-                $query->orWhere('provedor_id',$request->provedor_id);
-            endif;
         })->paginate();
     }
 

@@ -27,5 +27,10 @@ class EloquentContaRepository extends BaseEloquentRepository implements ContaRep
             
         })->paginate();
     }
+    
+    public function selectContas() 
+    {
+        return $this->entity->pluck('nome', 'id');
+    }
 
 }

@@ -22,7 +22,7 @@
     
     @if(config('adminlte.plugins.jqueryUICSS'))
         <!-- Jquery UI CSS SMOOTHENESS -->
-        <script src="code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     @endif
 
 
@@ -72,6 +72,7 @@
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 @endif
 
+@stack('mask')
 @yield('adminlte_js')
 
 </body>

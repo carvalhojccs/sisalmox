@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface MaterialRepositoryInterface 
 {
-    public function search(Request $request);
+    public function search(array $filters);
 }

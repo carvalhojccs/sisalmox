@@ -13,4 +13,9 @@ class Natureza extends Model
     {
         return $this->belongsToMany(Conta::class);
     }
+    
+    public function movimentos() 
+    {
+        return $this->hasMany(Movimento::class);
+    }
 }

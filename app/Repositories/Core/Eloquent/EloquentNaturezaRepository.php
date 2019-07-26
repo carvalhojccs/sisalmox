@@ -21,5 +21,10 @@ class EloquentNaturezaRepository extends BaseEloquentRepository implements Natur
             endif;
         })->paginate();
     }
+    
+    public function selectNaturezas() 
+    {
+        return $this->entity->pluck('codigo', 'id');
+    }
 
 }
