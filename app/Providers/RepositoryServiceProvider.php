@@ -15,6 +15,7 @@ use App\Repositories\Core\Eloquent\EloquentMovimentoRepository;
 use App\Repositories\Core\Eloquent\EloquentTipoMovimentoRepository;
 use App\Repositories\Core\Eloquent\EloquentEntradaRepository;
 use App\Repositories\Core\Eloquent\EloquentPapelRepository;
+use App\Repositories\Core\Eloquent\EloquentPermissaoRepository;
 
 use App\Repositories\Interfaces\UnidadeRepositoryInterface;
 use App\Repositories\Interfaces\NaturezaRepositoryInterface;
@@ -29,6 +30,7 @@ use App\Repositories\Interfaces\MovimentoRepositoryInterface;
 use App\Repositories\Interfaces\TipoMovimentoRepositoryInterface;
 use App\Repositories\Interfaces\EntradaRepositoryInterface;
 use App\Repositories\Interfaces\PapelRepositoryInterface;
+use App\Repositories\Interfaces\PermissaoRepositoryInterface;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -54,6 +56,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(TipoMovimentoRepositoryInterface::class, EloquentTipoMovimentoRepository::class);
         $this->app->bind(EntradaRepositoryInterface::class, EloquentEntradaRepository::class);
         $this->app->bind(PapelRepositoryInterface::class, EloquentPapelRepository::class);
+        $this->app->bind(PermissaoRepositoryInterface::class, EloquentPermissaoRepository::class);
     }
 
     /**

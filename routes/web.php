@@ -38,6 +38,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
     
     Route::any('papeis/search','PapelController@search')->name('papeis.search');
     Route::resource('papeis','PapelController');
+    
+    Route::any('permissoes/search','PermissaoController@search')->name('permissoes.search');
+    Route::resource('permissoes','PermissaoController');
 });
 
 Route::get('/', function () {

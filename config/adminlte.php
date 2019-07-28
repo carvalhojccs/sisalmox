@@ -132,6 +132,11 @@ return [
                     'url'   => 'admin/papeis',
                     'icon'  => 'random',
                 ],
+                [
+                    'text'  => 'Permissões',
+                    'url'   => 'admin/permissoes',
+                    'icon'  => 'lock',
+                ],
             ],
         ],
         
