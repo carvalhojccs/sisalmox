@@ -7,12 +7,12 @@
     <div class="box box-primary">
         <div class="box-body">
             <div class="form-group">
-                {{ Form::label('nome','Nome do armazem:') }}
+                {{ Form::label('nome','Nome do papel:') }}
                 {{ Form::text('nome',$data->nome,['class' => 'form-control','disabled']) }}
             </div>
             <div class="form-group">
-                {{ Form::label('sigla','Sigla do armazem:') }}
-                {{ Form::text('sigla',$data->sigla,['class' => 'form-control','disabled']) }}
+                {{ Form::label('descricao','Sigla do papel:') }}
+                {{ Form::text('descricao',$data->descricao,['class' => 'form-control','disabled']) }}
             </div>
             <div class="form-group">
                 {{ Form::label('data_cadastro','Cadastrado em:') }}

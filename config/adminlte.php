@@ -121,6 +121,20 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        
+        'USUÁRIOS',
+        [
+            'text'      => 'Administração',
+            'icon'      => 'share',
+            'submenu'   => [
+                [
+                    'text'  => 'Papeis',
+                    'url'   => 'admin/papeis',
+                    'icon'  => 'random',
+                ],
+            ],
+        ],
+        
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',

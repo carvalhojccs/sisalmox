@@ -35,6 +35,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
     
     Route::any('entradas/search','EntradaController@search')->name('entradas.search');
     Route::resource('entradas','EntradaController');
+    
+    Route::any('papeis/search','PapelController@search')->name('papeis.search');
+    Route::resource('papeis','PapelController');
 });
 
 Route::get('/', function () {
