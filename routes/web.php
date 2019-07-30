@@ -41,10 +41,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
     
     Route::any('permissoes/search','PermissaoController@search')->name('permissoes.search');
     Route::resource('permissoes','PermissaoController');
+    
+    Route::any('usuarios/search','UserController@search')->name('usuarios.search');
+    Route::resource('usuarios','UserController');
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('login');
 });
 
 Auth::routes();

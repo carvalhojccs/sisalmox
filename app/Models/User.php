@@ -36,4 +36,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function papeis()
+    {
+        return $this->belongsToMany(Papel::class);
+    }
+    
+    public function temPermissao(Permissao $permissao) 
+    {
+	    	return $this->temAlgumPapel($permissao->papeis);
+    }
+        
+    public function temAlgumPapel($papeis) 
+    {
+	if(is_array($papeis) || is_object($papeis))
+	{
+		foreach ($papeis as $papel)
+		{
+			return !! $papeis->intersect($this->papeis)->count();
+		}
+	}
+	return $this->papeis->contains('nome',$papeis);
+    }
 }

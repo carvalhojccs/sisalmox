@@ -7,8 +7,8 @@
     <div class="box box-primary">
         <div class="box-body">
             {{ Form::open(['route' => request()->segment(2).'.search','class' => 'form form-inline']) }}
-                {{ Form::text('nome',$filters['nome'] ?? '',['placeholder' => 'Nome do armazem','class' => 'form-control']) }}
-                {{ Form::text('sigla',$filters['sigla'] ?? '',['placeholder' => 'Código do armazem','class' => 'form-control']) }}
+                {{ Form::text('name',$filters['name'] ?? '',['placeholder' => 'Nome do usuário','class' => 'form-control']) }}
+                {{ Form::text('email',$filters['email'] ?? '',['placeholder' => 'Email','class' => 'form-control']) }}
                 {{ Form::submit('Pesquisar',['class' => 'btn btn-primary']) }}
                 @if(isset($filters))
                     <a href="{{ route(request()->segment(2).'.index') }}">(x) Limpar Resultados da Pesquisa</a>
@@ -26,17 +26,17 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Sigla</th>
+                        <th>Email</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $armazem)
+                    @foreach ($data as $item)
                     <tr>
-                        <td>{{ $armazem->nome }}</td>
-                        <td>{{ $armazem->sigla }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->email }}</td>
                         <td>
-                            <a href="{{ route(request()->segment(2).'.show', $armazem->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye">&nbsp;</i>Detalhes</a>
+                            <a href="{{ route(request()->segment(2).'.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye">&nbsp;</i>Detalhes</a>
                         </td>
                     </tr>
                     @endforeach

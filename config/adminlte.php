@@ -128,6 +128,11 @@ return [
             'icon'      => 'share',
             'submenu'   => [
                 [
+                    'text'  => 'Usuários',
+                    'url'   => 'admin/usuarios',
+                    'icon'  => 'user',
+                ],
+                [
                     'text'  => 'Papeis',
                     'url'   => 'admin/papeis',
                     'icon'  => 'random',
