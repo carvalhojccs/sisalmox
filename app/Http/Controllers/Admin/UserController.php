@@ -59,6 +59,8 @@ class UserController extends Controller
     public function store(StoreUpdateUserFormRequest $request)
     {
         $this->repository->storeUser($request);
+        
+        return redirect()->route($this->model.'.index')->withSuccess('Cadastro realizado com sucesso!');
     }
 
     /**
@@ -69,7 +71,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->repository->relationships('papeis')->findById($id);
+        
+        return view('admin.'.$this->model.'.show', compact('data'));
     }
 
     /**
@@ -80,7 +84,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        //recupera os papeis que ainda não foram associados
+        $papeis = $this->repository->getPapeisDisponiveis($id);
+        
+        //recupera o usuário com os papeis associados
+        if(!$data = $this->repository->relationships('papeis')->findById($id)):
+            return redirect()->back();
+        else:
+            return view('admin.'.$this->model.'.edit', compact('data','papeis'));
+        endif;
     }
 
     /**
@@ -90,9 +102,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateUserFormRequest $request, $id)
     {
-        //
+        //recupera os papeis selecionados
+        $papeis = $request->papeis;
+        
+        $user = $this->repository->findById($id);
+        
+        //persiste e associa o usuário aos papeis selecionados
+        $user->papeis()->sync($papeis);
+        
+        $data = $request->all();
+        
+        if($request->password):
+            $data['password'] = bcrypt($data['password']);
+        else:
+            unset($data['password']);
+        endif;
+        
+        $this->repository->update($id, $data);
+        
+        //redireciona para a view index
+        return redirect()->route($this->model.'.index')->withSuccess('Atualização realizada com sucesso!');
+        
     }
 
     /**

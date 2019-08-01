@@ -5,15 +5,23 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\PapelRepositoryInterface;
+use App\Repositories\Interfaces\PapelPermissaoRepositoryInterface;
+use App\Repositories\Interfaces\PermissaoRepositoryInterface;
 use App\Http\Requests\StoreUpdatePapelFormRequest;
 
 class PapelController extends Controller
 {
-    protected $repository, $model;
+    protected $repository, $permissaoRepository, $papelPermissaoRepository, $model;
     
-    public function __construct(PapelRepositoryInterface $repository, Request $request) 
+    public function __construct(
+            PapelRepositoryInterface $repository, 
+            PapelPermissaoRepositoryInterface $papelPermissaoRepository,
+            PermissaoRepositoryInterface $permissaoRepository,
+            Request $request) 
     {
         $this->repository = $repository;
+        $this->papelPermissaoRepository = $papelPermissaoRepository;
+        $this->permissaoRepository = $permissaoRepository;
         $this->model = $request->segment(2);
     }
     /**
@@ -37,8 +45,11 @@ class PapelController extends Controller
      */
     public function create()
     {
+        //recupera todas as permissoes
+        $permissoes = $this->permissaoRepository->getAll();
+
         //chama a view create com o formulário para cadastro
-        return view('admin.'.$this->model.'.create');
+        return view('admin.'.$this->model.'.create', compact('permissoes'));
     }
 
     /**
@@ -49,7 +60,14 @@ class PapelController extends Controller
      */
     public function store(StoreUpdatePapelFormRequest $request)
     {
-        if($this->repository->store($request->all())):
+        
+        //persiste o papel no banco
+        $papel = $this->repository->store($request->all());
+        
+        if($papel):
+            //associa os papeis às permissões selecionadas
+            $papel->permissoes()->sync($request->permissoes);
+        
             return redirect()->route($this->model.'.index')
                 ->withSuccess('Cadasro realizado com sucesso!');
         else:
@@ -65,8 +83,8 @@ class PapelController extends Controller
      */
     public function show($id)
     {
-        //recupera os dados pelo seu id
-        $data = $this->repository->findById($id);
+        //recupera os papeis e suas perissões pelo seu id
+        $data = $this->repository->relationships('permissoes')->findById($id);
         
         //chama a view show e passa os dados na variável $data
         return view('admin.'.$this->model.'.show', compact('data'));
@@ -80,10 +98,18 @@ class PapelController extends Controller
      */
     public function edit($id)
     {
-        if(!$data = $this->repository->findById($id)):
+        //retorna as permissões que estão associadas ao papel
+        $permissoesAssociadas = $this->papelPermissaoRepository
+                ->findWhere('papel_id',$id)->pluck('permissao_id');
+        
+        //retorna as permissões que ainda estão disponíveis
+        $permissoes = $this->permissaoRepository
+                ->findWhereNotIn('id',$permissoesAssociadas);
+                
+        if(!$data = $this->repository->relationships('permissoes')->findById($id)):
             return redirect()->back();
         else:
-            return view('admin.'.$this->model.'.edit', compact('data'));
+            return view('admin.'.$this->model.'.edit', compact('data','permissoes'));
         endif;
     }
 
@@ -96,6 +122,10 @@ class PapelController extends Controller
      */
     public function update(StoreUpdatePapelFormRequest $request, $id)
     {
+        //recupera o papel em questão e sincroniza
+        $papel = $this->repository->findById($id);
+        $papel->permissoes()->sync($request->permissoes);
+
         //atualia os dados de um registro específico
         $this->repository->update($id, $request->all());
         
@@ -115,6 +145,7 @@ class PapelController extends Controller
         //verifica se a conta foi deletada com sucesso e redireciona para a view index,
         //caso contrário mostra uma mensagem de erro
         if($this->repository->delete($id)):
+            $this->papelPermissaoRepository->deleteWhere('papel_id',$id);
             return redirect()->route($this->model.'.index')
                 ->withSuccess('Cadastro deletado co sucesso!');
         else:

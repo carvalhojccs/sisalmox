@@ -21,7 +21,7 @@ class EloquentPermissaoRepository extends BaseEloquentRepository implements Perm
             endif;
             
             if($filters['nome']):
-                $query->orWhere('nome','LIKE',"%{$filters['nome']}%");
+                $query->where('nome','LIKE',"%{$filters['nome']}%");
             endif;
         })->paginate();
     }

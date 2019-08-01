@@ -8,7 +8,7 @@
         <div class="box-body">
             {{ Form::open(['route' => request()->segment(2).'.search','class' => 'form form-inline']) }}
                 {{ Form::text('nome',$filters['nome'] ?? '',['placeholder' => 'Nome da permissão','class' => 'form-control']) }}
-                {{ Form::text('descricao',$filters['descricao'] ?? '',['placeholder' => 'Código da permissão','class' => 'form-control']) }}
+                {{ Form::text('descricao',$filters['descricao'] ?? '',['placeholder' => 'Descrição da permissão','class' => 'form-control']) }}
                 {{ Form::submit('Pesquisar',['class' => 'btn btn-primary']) }}
                 @if(isset($filters))
                     <a href="{{ route(request()->segment(2).'.index') }}">(x) Limpar Resultados da Pesquisa</a>

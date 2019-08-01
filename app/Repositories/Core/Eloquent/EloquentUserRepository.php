@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\Core\BaseEloquentRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class EloquentUserRepository extends BaseEloquentRepository implements UserRepositoryInterface
 {
@@ -29,12 +30,12 @@ class EloquentUserRepository extends BaseEloquentRepository implements UserRepos
     
     public function storeUser($request) 
     {
-        
         //persiste o usuário no banco e retorna o seu id
         $id = DB::table('users')->insertGetId([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => bcrypt($request->password)
+            'name'          => $request->name,
+            'email'         => $request->email,
+            'password'      => bcrypt($request->password),
+            'created_at'    => Carbon::now()
         ]);
         
         //recupera o usuário persistido, pelo seu id
@@ -48,5 +49,17 @@ class EloquentUserRepository extends BaseEloquentRepository implements UserRepos
         
         return true;
     }
-
+    
+    public function getPapeisDisponiveis($id) 
+    {
+        $papeisAssociados = DB::table('papel_user')
+                ->addSelect('papel_id')
+                ->where('user_id',$id);
+        
+        $papeisDisponiveis = DB::table('papeis')
+                ->addSelect(['id','descricao'])
+                ->whereNotIn('id',$papeisAssociados)->get();
+        
+        return $papeisDisponiveis;
+    }
 }

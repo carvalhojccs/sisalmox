@@ -13,7 +13,6 @@
     </div>
     <div class="form-group col-md-6">
         <h3>Perfís disponíveis</h3>
-        
         @foreach ($papeis as $papel)
         <div>
             {{ Form::checkbox('papeis[]', $papel->id, false,null) }}
@@ -21,10 +20,16 @@
         </div>
         @endforeach
     </div>
-</div>
-<div class="form-row">
-    <div class="form-group col-md-12">
-        {{ FORM::button('<i class="fa fa-save"></i> Salvar',['class'=>'btn btn-sm btn-success','type'=>'submit']) }}
-        <a href="{{ route(request()->segment(2).'.index') }}" class="btn btn-sm btn-primary"><i class="fa fa-backward">&nbsp;</i>Voltar</a>
+    @if(isset($data))
+    <div class="form-group col-md-6">
+        <h3>Perfís associados</h3>
+        @foreach ($data->papeis as $papel)
+        <div>
+            {{ Form::checkbox('papeis[]', $papel->id, true,null) }}
+            {{ Form::label($papel->descricao, $papel->descricao) }}
+        </div>
+        @endforeach
     </div>
+    @endif
 </div>
+@include('admin.componentes.componente_form_btn_salvar')

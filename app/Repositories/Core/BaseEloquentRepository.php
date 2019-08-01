@@ -18,7 +18,12 @@ class BaseEloquentRepository implements RepositoryInterface
     {
         return $this->entity->find($id)->delete();
     }
-
+    
+    public function deleteWhere($column, $value) 
+    {
+        return $this->entity->where($column, $value)->delete();
+    }
+    
     public function findById($id) 
     {
         return $this->entity->find($id);
@@ -32,6 +37,12 @@ class BaseEloquentRepository implements RepositoryInterface
     public function findWhereFirst($column, $value) 
     {
         return $this->entity->where($column , $value)->first();
+    }
+    
+    public function findWhereNotIn($column, $value) 
+    {
+        return $this->entity->whereNotIn($column , $value)->get();
+        
     }
 
     public function getAll() 
@@ -68,7 +79,7 @@ class BaseEloquentRepository implements RepositoryInterface
         $this->entity = $this->entity->orderBy($column, $order);
         return $this;
     }
-
+    
         public function resolveEntity()
     {
         if(!method_exists($this, 'entity')):

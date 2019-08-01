@@ -25,5 +25,4 @@ class EloquentPapelRepository extends BaseEloquentRepository implements PapelRep
             endif;
         })->paginate();
     }
-    
 }

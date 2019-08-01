@@ -7,24 +7,24 @@
     <div class="box box-primary">
         <div class="box-body">
             <div class="form-group">
-                {{ Form::label('nome','Nome do papel:') }}
-                {{ Form::text('nome',$data->nome,['class' => 'form-control','disabled']) }}
+                {{ Form::label('name','Nome do usuário:') }}
+                {{ Form::text('name',$data->name,['class' => 'form-control','disabled']) }}
             </div>
             <div class="form-group">
-                {{ Form::label('descricao','Sigla do papel:') }}
-                {{ Form::text('descricao',$data->descricao,['class' => 'form-control','disabled']) }}
+                {{ Form::label('email','Email do usuário:') }}
+                {{ Form::text('email',$data->email,['class' => 'form-control','disabled']) }}
             </div>
             <div class="form-group">
                 {{ Form::label('data_cadastro','Cadastrado em:') }}
                 {{ Form::text('data_cadastro',$data->created_at->format('d/m/Y'),['class' => 'form-control','disabled']) }}
             </div>
             <div class="form-group">
-                {{ Form::label('permissoes','Permissões associadas') }}
-            @forelse($data->permissoes as $permissoes)
-                {{ Form::text('permissoes',$permissoes->descricao,['class' => 'form-control','disabled']) }}
+                {{ Form::label('papeis','Papeis associados') }}
+            @forelse($data->papeis as $papel)
+                {{ Form::text('papeis',$papel->descricao,['class' => 'form-control','disabled']) }}
                 <br>
             @empty
-            <h3>Este usuário não tem permissões associadas!</h3>
+            <h3>Este usuário não tem papéis associados!</h3>
             @endforelse
             </div>
             @include('admin.componentes.form_btn_show')
