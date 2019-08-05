@@ -30,7 +30,7 @@ class UserController extends Controller
     public function index()
     {
         //recupera todos os dados da tabela
-        $data = $this->repository->paginate();
+        $data = $this->repository->relationships('local')->paginate();
         
         //chama a view index para listagem dos dados
         return view('admin.'.$this->model.'.index', compact('data'));

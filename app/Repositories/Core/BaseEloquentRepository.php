@@ -49,6 +49,11 @@ class BaseEloquentRepository implements RepositoryInterface
     {
         return $this->entity->get();
     }
+    
+    public function getSelect($value, $id) 
+    {
+        return $this->entity->pluck($value, $id);
+    }
 
     public function paginate($totalPage = 10) 
     {

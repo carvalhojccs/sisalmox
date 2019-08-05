@@ -179,6 +179,10 @@ return [
             'icon'    => 'share',
             'submenu' => [
                 [
+                    'text' => 'Local',
+                    'url'  => 'admin/locais',
+                ],
+                [
                     'text' => 'Tipo Movimento',
                     'url'  => 'admin/tipo_movimentos',
                 ],

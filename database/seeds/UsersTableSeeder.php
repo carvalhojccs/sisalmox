@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::insert([
+            'local_id'      => null,
             'name'          => 'Administrador', 
             'email'         => 'admin@fab.mil.br', 
             'password'      => bcrypt(123456),

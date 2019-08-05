@@ -5,6 +5,7 @@ namespace App\Repositories\Interfaces;
 interface RepositoryInterface 
 {
     public function getAll();
+    public function getSelect($value, $id);
     public function findById($id);
     public function findWhere($column,$value);
     public function findWhereFirst($column,$value);

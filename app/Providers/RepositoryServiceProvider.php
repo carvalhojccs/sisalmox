@@ -19,6 +19,7 @@ use App\Repositories\Core\Eloquent\EloquentPermissaoRepository;
 use App\Repositories\Core\Eloquent\EloquentUserRepository;
 use App\Repositories\Core\Eloquent\EloquentPapelUserRepository;
 use App\Repositories\Core\Eloquent\EloquentPapelPermissaoRepository;
+use App\Repositories\Core\Eloquent\EloquentLocalRepository;
 
 use App\Repositories\Interfaces\UnidadeRepositoryInterface;
 use App\Repositories\Interfaces\NaturezaRepositoryInterface;
@@ -37,6 +38,7 @@ use App\Repositories\Interfaces\PermissaoRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\PapelUserRepositoryInterface;
 use App\Repositories\Interfaces\PapelPermissaoRepositoryInterface;
+use App\Repositories\Interfaces\LocalRepositoryInterface;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -66,6 +68,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
         $this->app->bind(PapelUserRepositoryInterface::class, EloquentPapelUserRepository::class);
         $this->app->bind(PapelPermissaoRepositoryInterface::class, EloquentPapelPermissaoRepository::class);
+        $this->app->bind(LocalRepositoryInterface::class, EloquentLocalRepository::class);
     }
 
     /**

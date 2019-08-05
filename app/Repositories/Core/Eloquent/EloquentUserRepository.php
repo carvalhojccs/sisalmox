@@ -62,4 +62,10 @@ class EloquentUserRepository extends BaseEloquentRepository implements UserRepos
         
         return $papeisDisponiveis;
     }
+    
+    //atualiza, na tgabela de usuários, o local onde o usuário está no momento
+    public function storeAlocacao($request) 
+    {
+        
+    }
 }

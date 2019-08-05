@@ -58,4 +58,9 @@ class User extends Authenticatable
 	}
 	return $this->papeis->contains('nome',$papeis);
     }
+    
+    public function local() 
+    {
+        return $this->belongsTo(Local::class);
+    }
 }

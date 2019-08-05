@@ -44,6 +44,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
     
     Route::any('usuarios/search','UserController@search')->name('usuarios.search');
     Route::resource('usuarios','UserController');
+    
+    Route::any('locais/search','LocalController@search')->name('locais.search');
+    Route::resource('locais','LocalController');
+    
+    Route::any('alocacoes/search','LocalUserController@search')->name('alocacoes.search');
+    Route::resource('alocacoes','LocalUserController');
+    
+    Route::any('requisicoes/search','RequisicaoController@search')->name('requisicoes.search');
+    Route::resource('requisicoes','RequisicaoController');
 });
 
 Route::get('/', function () {
