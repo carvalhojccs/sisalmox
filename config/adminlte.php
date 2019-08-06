@@ -227,8 +227,9 @@ return [
         ],
         'LABELS',
         [
-            'text'       => 'Important',
-            'icon_color' => 'red',
+            'text'          => 'Requisição',
+            'icon_color'    => 'red',
+            'url'           => 'admin/requisicoes',
         ],
         [
             'text'       => 'Warning',

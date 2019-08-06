@@ -20,5 +20,26 @@ class UsersTableSeeder extends Seeder
             'password'      => bcrypt(123456),
             'created_at'    => Carbon::now()
             ]);
+        User::insert([
+            'local_id'      => null,
+            'name'          => '1T Dyego', 
+            'email'         => 'dyegodos@fab.mil.br', 
+            'password'      => bcrypt(123456),
+            'created_at'    => Carbon::now()
+            ]);
+        User::insert([
+            'local_id'      => null,
+            'name'          => '1S Casanova', 
+            'email'         => 'casanovarcos@fab.mil.br', 
+            'password'      => bcrypt(123456),
+            'created_at'    => Carbon::now()
+            ]);
+        User::insert([
+            'local_id'      => null,
+            'name'          => '2S Dilson', 
+            'email'         => 'dilson@fab.mil.br', 
+            'password'      => bcrypt(123456),
+            'created_at'    => Carbon::now()
+            ]);
     }
 }
