@@ -8,6 +8,7 @@
 
 @section('content')
     <p>{{ auth()->user()->name }}</p>
-    <p>{{ auth()->user()->id }}</p>
+    <p>{{ auth()->user()->local->sigla }}</p>
+    
     
 @stop

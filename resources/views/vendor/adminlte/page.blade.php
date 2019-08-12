@@ -57,6 +57,27 @@
                 <div class="navbar-custom-menu">
 
                     <ul class="nav navbar-nav">
+                        
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('imgs/usuario.png') }}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ auth()->user()->name }} > {{ auth()->user()->local->sigla }} </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="{{ asset('imgs/usuario.png') }}" class="img-circle" alt="User Image">
+                                    <p>
+                                        Alexander Pierce - Web Developer
+                                        <small>Member since Nov. 2012</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                  
+                                <!-- Menu Footer-->
+                            </ul>
+                        </li>
+                        
                         <li>
                             @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
                                 <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
@@ -76,6 +97,9 @@
                                 </form>
                             @endif
                         </li>
+                        
+                        
+                        
                     </ul>
                 </div>
                 @if(config('adminlte.layout') == 'top-nav')

@@ -20,9 +20,11 @@ class CreateRequisicoesTable extends Migration
             $table->string('numero');
             $table->string('aplicacao');
             $table->string('justificativa');
-            $table->enum('motivo', ['EIFP','EDCR','RESSUPRIMENTO','MNT. PREVENTIVA','OUTROS']);
+            $table->unsignedBigInteger('motivo_id');
+            $table->foreign('motivo_id')->references('id')->on('motivos')->onDelete('cascade');
             $table->string('destino');
-            $table->enum('situacao', ['NORMAL','URGENTE']);
+            $table->unsignedBigInteger('situacao_id');
+            $table->foreign('situacao_id')->references('id')->on('situacoes')->onDelete('cascade');
             $table->string('item');
             $table->unsignedBigInteger('material_id');
             $table->foreign('material_id')->references('id')->on('materiais')->onDelete('cascade');
@@ -33,6 +35,8 @@ class CreateRequisicoesTable extends Migration
             $table->integer('encarregado_id');
             $table->integer('chefe_id');
             $table->integer('suprimentista_id');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status_requisicoes')->onDelete('cascade');
             $table->timestamps();
         });
     }

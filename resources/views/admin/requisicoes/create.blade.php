@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 @section('content_header')
-@include('admin.componentes.component_breadcrumb_create')
+@include('admin.componentes.componente_breadcrumb_create')
 @stop
 @section('content')
 <div class="content row">

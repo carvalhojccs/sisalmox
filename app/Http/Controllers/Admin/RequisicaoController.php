@@ -4,9 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\EquipamentoRepositoryInterface;
 
 class RequisicaoController extends Controller
 {
+    protected $equipamentoRepository;
+    
+    public function __construct(EquipamentoRepositoryInterface $equipamentoRepository)
+    {
+        $this->equipamentoRepository = $equipamentoRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +31,12 @@ class RequisicaoController extends Controller
      */
     public function create()
     {
-        return view('requisicoes.create');
+        //recupera o nome e id dos equipamentos
+        $equipamentos = $this->equipamentoRepository->selectEquipamentos();
+        
+        
+        
+        return view('admin.requisicoes.create', compact('equipamentos'));
     }
 
     /**

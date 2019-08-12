@@ -21,4 +21,9 @@ class EloquentEquipamentoRepository extends BaseEloquentRepository implements Eq
             endif;
         })->paginate(10);
     }
+    
+    public function selectEquipamentos() 
+    {
+        return $this->entity->pluck('nome','id');
+    }
 }

@@ -1,17 +1,15 @@
 <div class="form-row">
     <div class="form-group col-md-12">
-        {{ Form::label('armazem_id','Armazens') }}
-        
-        {{ Form::select('armazem_id',$armazens,null,['placeholder' => 'Selecione um armazem...', 'class' => 'form-control', 'id' => 'armazens']) }}
+        {{ Form::label('equipamento_id','Aplicação') }}
+        {{ Form::select('equipamento_id',$equipamentos,null,['placeholder' => 'Selecione um equipamento...', 'class' => 'form-control', 'id' => 'equipamento']) }}
         
     </div>
-    
-    <div class="form-group col-md-6">
-        {{ Form::label('nome','Aramzenagem') }}
-        {{ Form::text('nome',null,['placeholder' => 'Nome do Local de armazenagem','class' => 'form-control']) }}
+    <div class="form-group col-md-12">
+        {{ Form::label('justificativa','Justificativa') }}
+        {{ Form::text('justificativa',null,['placeholder' => 'Justificativa','class' => 'form-control']) }}
     </div>
     <div class="form-group col-md-6">
-        {{ Form::label('sigla','Sigla') }}
+        {{ Form::label('motivo','') }}
         {{ Form::text('sigla',null,['placeholder' => 'Sigla do local de armazenagem','class' => 'form-control']) }}
     </div>
 </div>
